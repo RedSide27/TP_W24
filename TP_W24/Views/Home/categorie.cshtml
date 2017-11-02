@@ -1,0 +1,289 @@
+﻿@model IEnumerable<TP_W24.Models.Post>
+    <!-- Start Blog Banner
+        ==================================== -->
+        <section id="blog-banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                       
+                        <div class="blog-icon">
+                            <i class="fa fa-book fa-4x"></i>
+                        </div>
+                        <div class="blog-title">
+                            <h1>"Nom de la Catégorie"</h1>
+                        </div>
+                        
+					</div>     <!-- End col-lg-12 -->
+				</div>	    <!-- End row -->
+			</div>       <!-- End container -->
+		</section>    <!-- End Section -->
+
+        <!-- Start Blog Post Section
+        ==================================== -->
+
+            @*<a href='@Url.Action("post", "Home")'></a> pour lien de redirection*@
+
+        <section id="blog-page">
+            <div class="container">
+                <div class="row">
+
+                    <div id="blog-posts" class="col-md-8 col-sm-8">
+                        <div class="post-item">
+                           
+                            @foreach (var item in Model)
+                            {
+                            <article class="entry wow fadeInDown"  data-wow-duration="1000ms" data-wow-delay="300ms">
+
+                                <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                    <a href='/Home/Post'><img src="/img/blog/user.jpg" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                    <a href='/Home/Post'><h3 style="float: left;margin-left: 20px;">@item.Post_Name</h3></a>
+                                </div>
+
+                                <div class="post-meta">
+                                    <span class="post-date">
+                                        <i class="fa fa-calendar"></i>@item.Post_Date_Heure
+                                    </span>
+                                    <span class="comments">
+                                        <i class="fa fa-comments"></i>18 Comments
+                                    </span>
+                                    <span class="author">
+                                        <i class="fa fa-user"></i><a href="#">Admin</a>
+                                    </span>
+                                </div>
+                            </article>
+                            }
+                           
+	
+	                        @*<!--------------------------------- Début Discussion --------------------------------->
+	                        <article class="entry wow fadeInDown"  data-wow-duration="1000ms" data-wow-delay="300ms">
+		                        <!--------------------------------- Image et Titre --------------------------------->
+		                        <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                    <a href='@Url.Action("post", "Home")'><img src="/img/blog/user.jpg" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                    <a href='@Url.Action("post", "Home")'><h3 style="float: left;margin-left: 20px;">** Question ou Sujet du Post **</h3></a>
+		                        </div>
+		                        <!--------------------------------- FIN Image et Titre --------------------------------->
+		                        <div class="post-meta">
+                                    <span class="post-date">
+                                        <i class="fa fa-calendar"></i>30 jun 2014
+                                    </span>
+			                        <span class="comments">
+                                        <i class="fa fa-comments"></i>18 Comments
+                                    </span>
+			                        <span class="post-view">
+                                        <i class="fa fa-eye"></i>265 Views
+                                    </span>
+			                        <span class="author">
+                                        <i class="fa fa-user"></i><a href="#">Admin</a>
+                                    </span>
+		                        </div>
+	                        </article>
+	                        <!--------------------------------- FIN Discussion --------------------------------->
+	
+	
+	                        <!--------------------------------- Début Discussion --------------------------------->
+	                        <article class="entry wow fadeInDown"  data-wow-duration="1000ms" data-wow-delay="300ms">
+		                        <!--------------------------------- Image et Titre --------------------------------->
+		                        <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                    <a href='@Url.Action("post", "Home")'><img src="/img/blog/user.jpg" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                    <a href='@Url.Action("post", "Home")'><h3 style="float: left;margin-left: 20px;">** Question ou Sujet du Post **</h3></a>
+		                        </div>
+		                        <!--------------------------------- FIN Image et Titre --------------------------------->
+		                        <div class="post-meta">
+                                    <span class="post-date">
+                                        <i class="fa fa-calendar"></i>30 jun 2014
+                                    </span>
+			                        <span class="comments">
+                                        <i class="fa fa-comments"></i>18 Comments
+                                    </span>
+			                        <span class="post-view">
+                                        <i class="fa fa-eye"></i>265 Views
+                                    </span>
+			                        <span class="author">
+                                        <i class="fa fa-user"></i><a href="#">Admin</a>
+                                    </span>
+		                        </div>
+	                        </article>
+	                        <!--------------------------------- FIN Discussion --------------------------------->
+	
+	
+	                        <!--------------------------------- Début Discussion --------------------------------->
+	                        <article class="entry wow fadeInDown"  data-wow-duration="1000ms" data-wow-delay="300ms">
+		                        <!--------------------------------- Image et Titre --------------------------------->
+		                        <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                    <a href='@Url.Action("post", "Home")'><img src="/img/blog/user.jpg" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                    <a href='@Url.Action("post", "Home")'><h3 style="float: left;margin-left: 20px;">** Question ou Sujet du Post **</h3></a>
+		                        </div>
+		                        <!--------------------------------- FIN Image et Titre --------------------------------->
+		                        <div class="post-meta">
+                                    <span class="post-date">
+                                        <i class="fa fa-calendar"></i>30 jun 2014
+                                    </span>
+			                        <span class="comments">
+                                        <i class="fa fa-comments"></i>18 Comments
+                                    </span>
+			                        <span class="post-view">
+                                        <i class="fa fa-eye"></i>265 Views
+                                    </span>
+			                        <span class="author">
+                                        <i class="fa fa-user"></i><a href="#">Admin</a>
+                                    </span>
+		                        </div>
+	                        </article>
+	                        <!--------------------------------- FIN Discussion --------------------------------->
+	
+	
+	                        <!--------------------------------- Début Discussion --------------------------------->
+	                        <article class="entry wow fadeInDown"  data-wow-duration="1000ms" data-wow-delay="300ms">
+		                        <!--------------------------------- Image et Titre --------------------------------->
+		                        <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                    <a href='@Url.Action("post", "Home")'><img src="/img/blog/user.jpg" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                    <a href='@Url.Action("post", "Home")'><h3 style="float: left;margin-left: 20px;">** Question ou Sujet du Post **</h3></a>
+		                        </div>
+		                        <!--------------------------------- FIN Image et Titre --------------------------------->
+		                        <div class="post-meta">
+                                    <span class="post-date">
+                                        <i class="fa fa-calendar"></i>30 jun 2014
+                                    </span>
+			                        <span class="comments">
+                                        <i class="fa fa-comments"></i>18 Comments
+                                    </span>
+			                        <span class="post-view">
+                                        <i class="fa fa-eye"></i>265 Views
+                                    </span>
+			                        <span class="author">
+                                        <i class="fa fa-user"></i><a href="#">Admin</a>
+                                    </span>
+		                        </div>
+	                        </article>
+	                        <!--------------------------------- FIN Discussion --------------------------------->
+	
+	
+	                        <!--------------------------------- Début Discussion --------------------------------->
+	                        <article class="entry wow fadeInDown"  data-wow-duration="1000ms" data-wow-delay="300ms">
+		                        <!--------------------------------- Image et Titre --------------------------------->
+		                        <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                    <a href='@Url.Action("post", "Home")'><img src="/img/blog/user.jpg" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                    <a href='@Url.Action("post", "Home")'><h3 style="float: left;margin-left: 20px;">** Question ou Sujet du Post **</h3></a>
+		                        </div>
+		                        <!--------------------------------- FIN Image et Titre --------------------------------->
+		                        <div class="post-meta">
+                                    <span class="post-date">
+                                        <i class="fa fa-calendar"></i>30 jun 2014
+                                    </span>
+			                        <span class="comments">
+                                        <i class="fa fa-comments"></i>18 Comments
+                                    </span>
+			                        <span class="post-view">
+                                        <i class="fa fa-eye"></i>265 Views
+                                    </span>
+			                        <span class="author">
+                                        <i class="fa fa-user"></i><a href="#">Admin</a>
+                                    </span>
+		                        </div>
+	                        </article>
+	                        <!--------------------------------- FIN Discussion --------------------------------->
+	
+	
+	                        <!--------------------------------- Début Discussion --------------------------------->
+	                        <article class="entry wow fadeInDown"  data-wow-duration="1000ms" data-wow-delay="300ms">
+		                        <!--------------------------------- Image et Titre --------------------------------->
+		                        <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                    <a href='@Url.Action("post", "Home")'><img src="/img/blog/user.jpg" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                    <a href='@Url.Action("post", "Home")'><h3 style="float: left;margin-left: 20px;">** Question ou Sujet du Post **</h3></a>
+		                        </div>
+		                        <!--------------------------------- FIN Image et Titre --------------------------------->
+		                        <div class="post-meta">
+                                    <span class="post-date">
+                                        <i class="fa fa-calendar"></i>30 jun 2014
+                                    </span>
+			                        <span class="comments">
+                                        <i class="fa fa-comments"></i>18 Comments
+                                    </span>
+			                        <span class="post-view">
+                                        <i class="fa fa-eye"></i>265 Views
+                                    </span>
+			                        <span class="author">
+                                        <i class="fa fa-user"></i><a href="#">Admin</a>
+                                    </span>
+		                        </div>
+	                        </article>
+	                        <!--------------------------------- FIN Discussion --------------------------------->*@
+                         
+	                        <!----------------------------- Pagination ----------------------------->
+                            <nav class="post-pagination wow fadeInDown"  data-wow-duration="1000ms" data-wow-delay="300ms">
+                                <ul>
+                                    <li class="disabled"><a href="#">&laquo;</a></li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">...</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">11</a></li>
+                                    <li><a href="#">12</a></li>
+                                    <li><a href="#">13</a></li>
+                                    <li><a href="#">&raquo;</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+	                        <!------------------------- Fin Pagination ----------------------------->
+                    <!-- Widget Section -->
+                    <div id="right-sidebar" class="col-md-4 col-sm-4">
+	
+	                    <!------------------------------Recherche ----------------------------->
+                        <aside class="widget wow fadeInUp"  data-wow-duration="1000ms">
+							<div class="widget-title">
+                               <h3>Rechercher</h3>
+							</div>
+                           <div class="widget-content">
+                                <form action="#" id="search-form" method="get" role="search">
+                                    <input type="text" class="form-control" placeholder="Recherche..." autocomplete="on" name="seach">
+                                    <button type="submit" title="Search" id="search-submit">
+										<i class="fa fa-search"></i>
+									</button>
+                                </form>
+                           </div>
+                        </aside>
+	                    <!------------------------- Fin Recherche ----------------------------->
+                       
+                       <!-- Single Widget -->
+                        <aside class="widget wow fadeInDown">
+							<div class="widget-title">
+                               <h3>Abonne Toi!</h3>
+                               <p>Abonne toi et recoit les alertes concernant tes sujets favori!</p>
+							</div>
+							<div class="widget-content">
+                                <form action="">
+                                    <input type="email" name="email" class="form-control" placeholder="Entrez votre email" required="">
+                                    <input type="submit" value="Envoyer" class="btn btn-transparent">
+                                </form>
+							</div>
+                        </aside>
+                        <!-- End Single Widget -->
+                       
+                       <!-- Single Widget -->
+                        <aside class="widget wow fadeInDown">
+                            <form action="#" method="post">
+                                <div class="widget-title">
+                                    <h3>Catégories</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="categories">
+                                        <li><i class="fa fa-comments-o"></i> @Html.ActionLink("Bitcoins", "categorie", "Home")</li>
+                                        <li><i class="fa fa-comments-o"></i> @Html.ActionLink("Verge", "categorie", "Home")</li>
+                                        <li><i class="fa fa-comments-o"></i> @Html.ActionLink("Dogecoins", "categorie", "Home")</li>
+                                        <li><i class="fa fa-comments-o"></i> @Html.ActionLink("Litecoins", "categorie", "Home")</li>
+                                        @*<li><i class="fa fa-plus"></i> <a href="#">Ajouter</a></li>*@ @*// Pour les Admin*@
+                                    </ul>
+                                </div>
+                            </form>
+                        </aside>
+                        <!-- End Single Widget -->
+                      
+                    </div>
+                    <!-- End Widget Section -->
+
+				</div>	    <!-- End row -->
+			</div>       <!-- End container -->
+		</section>    <!-- End Section -->

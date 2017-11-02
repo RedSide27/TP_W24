@@ -1,0 +1,42 @@
+﻿@model TP_W24.Models.Categorie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Categorie</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CategorieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategorieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategorieDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategorieDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categorie_Path_Img)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categorie_Path_Img)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Categorie_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

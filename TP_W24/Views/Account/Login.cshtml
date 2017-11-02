@@ -1,0 +1,38 @@
+<!-- Srart Contact Us
+        =========================================== -->
+<section id="contact-us">
+    <div class="container">
+        <div class="row">
+            <!-- section title -->
+            <div class="title text-center wow fadeIn" data-wow-duration="500ms">
+                <h2>Se <span class="color">Connecter</span></h2>
+                <div class="border"></div>
+            </div>
+            <!-- /section title -->
+            <!-- Contact Details -->
+            <!-- / End Contact Details -->
+            <!-- Contact Form -->
+            <div class="contact-form col-md-6 col-lg-offset-3 wow fadeInUp" data-wow-duration="500ms" data-wow-delay="300ms">
+                <form id="contact-form" method="post" action="sendmail.php" role="form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nom d'utilisateur/Email" class="form-control" name="name" id="name">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" placeholder="Mot de passe" class="form-control" name="subject" id="subject">
+                    </div>
+                    <div id="mail-success" class="success">
+                        Thank you. The Mailman is on His Way :)
+                    </div>
+                    <div id="mail-fail" class="error">
+                        Sorry, don't know what happened. Try later :(
+                    </div>
+                    <div id="cf-submit">
+                        <input type="submit" id="contact-submit" class="btn btn-transparent" value="Se Connecter">
+                    </div>
+                </form>
+            </div>
+            <!-- ./End Contact Form -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</section>

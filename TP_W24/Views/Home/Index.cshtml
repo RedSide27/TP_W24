@@ -1,0 +1,109 @@
+﻿        @model IEnumerable<TP_W24.Models.Categorie> 
+
+		<section id="counter" class="parallax-section">
+			<div class="container">
+				<div class="row">
+
+					<!-- first count item -->
+					<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms">
+						<div class="counters-item">
+							<div>
+							    <span data-speed="3000" data-to="320">124</span>
+							</div>
+							<i class="fa fa-users fa-3x"></i>
+							<h3>Personne devenu riche</h3>
+						</div>
+					</div>
+					<!-- end first count item -->
+
+					<!-- second count item -->
+					<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms" data-wow-delay="200ms">
+						<div class="counters-item">
+							<div>
+							    <span data-speed="3000" data-to="565">∞</span>
+							</div>
+							<i class="fa fa-money fa-3x"></i>
+							<h3>Monaies</h3>
+						</div>
+					</div>
+					<!-- end second count item -->
+
+					<!-- third count item -->
+					<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms" data-wow-delay="400ms">
+						<div class="counters-item">
+							<div>
+							    <span data-speed="3000" data-to="95">95</span>
+								<span>%</span>
+							</div>
+							<i class="fa fa-thumbs-up fa-3x"></i>
+				            <h3>Avis positif</h3>
+
+						</div>
+					</div>
+					<!-- end third count item -->
+
+					<!-- fourth count item -->
+					<div class="col-md-3 col-sm-6 col-xs-12 text-center wow fadeInDown" data-wow-duration="500ms" data-wow-delay="600ms">
+						<div class="counters-item kill-margin-bottom">
+							<div>
+							    <span data-speed="3000" data-to="3500">3500</span>
+							</div>
+							<i class="fa fa-coffee fa-3x"></i>
+							<h3>Jus d'orange</h3>
+						</div>
+					</div>
+					<!-- end fourth count item -->
+
+				</div> 		<!-- end row -->
+			</div>   	<!-- end container -->
+		</section>   <!-- end section -->
+
+		<!--
+		Start Blog Section
+		=========================================== -->
+				
+		<section id="blog" class="bg-one">
+			<div class="container">
+				<div class="row">
+
+					<!-- section title -->
+					<div class="title text-center wow fadeInDown">
+                        <a href="@Url.Action("Index", "Categories")"><h2> Caté<span class="color">gories</span></h2></a>
+						<div class="border"></div>
+					</div>
+					<!-- /section title -->
+
+					<div class="clearfix">
+                        @{ int cpt = 0;}
+                         @foreach (var item in Model)
+                         {
+                             cpt += 1;
+                            <article class="col-md-3 col-sm-6 col-xs-12 clearfix wow fadeInUp" data-wow-duration="500ms">
+                                <div class="note">
+                                    <div class="media-wrapper">
+                                        <img style="width:260.5px;height:173.66px;" src="@item.Categorie_Path_Img" alt="amazing caves coverimage" class="img-responsive">
+                                    </div>
+
+                                    <div class="excerpt">
+                                        <h3>@item.CategorieName</h3>
+                                        <p>@item.CategorieDescription</p>
+                                        <a class="btn btn-transparent" href='@Url.Action("categorie", "Home")'>Go</a>
+                                    </div>
+                                </div>
+                            </article>
+                             if (cpt == 4)
+                             {
+                                 break;
+                             }
+                         }
+					</div>
+
+				</div> <!-- end row -->
+			</div> <!-- end container -->
+		</section> <!-- end section -->
+		
+		<!-- Back to Top
+		============================== -->
+		<a href="javascript:;" id="scrollUp">
+			<i class="fa fa-angle-up fa-2x"></i>
+		</a>

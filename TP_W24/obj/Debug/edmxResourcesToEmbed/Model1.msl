@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CryptoBDModelStoreContainer" CdmEntityContainer="CryptoBDEntities">
+    <EntitySetMapping Name="Categorie">
+      <EntityTypeMapping TypeName="CryptoBDModel.Categorie">
+        <MappingFragment StoreEntitySet="Categorie">
+          <ScalarProperty Name="CategorieID" ColumnName="CategorieID" />
+          <ScalarProperty Name="CategorieName" ColumnName="CategorieName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Comment">
+      <EntityTypeMapping TypeName="CryptoBDModel.Comment">
+        <MappingFragment StoreEntitySet="Comment">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="Comment_Text" ColumnName="Comment_Text" />
+          <ScalarProperty Name="Comment_Date_Heure" ColumnName="Comment_Date_Heure" />
+          <ScalarProperty Name="PostID" ColumnName="PostID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Post">
+      <EntityTypeMapping TypeName="CryptoBDModel.Post">
+        <MappingFragment StoreEntitySet="Post">
+          <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
+          <ScalarProperty Name="Post_Name" ColumnName="Post_Name" />
+          <ScalarProperty Name="Post_Message" ColumnName="Post_Message" />
+          <ScalarProperty Name="Post_Date_Heure" ColumnName="Post_Date_Heure" />
+          <ScalarProperty Name="CategoriesID" ColumnName="CategoriesID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CryptoBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'CryptoBD.dbo.Categorie' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="Categorie">
+    <Key>
+      <PropertyRef Name="CategorieID" />
+    </Key>
+    <Property Name="CategorieID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategorieName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'CryptoBD.dbo.Comment' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="CommentID" />
+      <PropertyRef Name="Comment_Text" />
+      <PropertyRef Name="Comment_Date_Heure" />
+      <PropertyRef Name="PostID" />
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Comment_Text" Type="text" Nullable="false" />
+    <Property Name="Comment_Date_Heure" Type="datetime" Nullable="false" />
+    <Property Name="PostID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'CryptoBD.dbo.Post' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="Post_ID" />
+      <PropertyRef Name="Post_Name" />
+      <PropertyRef Name="Post_Message" />
+      <PropertyRef Name="Post_Date_Heure" />
+      <PropertyRef Name="CategoriesID" />
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="Post_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Post_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Post_Message" Type="text" Nullable="false" />
+    <Property Name="Post_Date_Heure" Type="datetime" Nullable="false" />
+    <Property Name="CategoriesID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="CryptoBDModelStoreContainer">
+    <EntitySet Name="Categorie" EntityType="Self.Categorie" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Categorie].[CategorieID] AS [CategorieID], 
+    [Categorie].[CategorieName] AS [CategorieName]
+    FROM [dbo].[Categorie] AS [Categorie]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Comment" EntityType="Self.Comment" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Comment].[CommentID] AS [CommentID], 
+    [Comment].[Comment_Text] AS [Comment_Text], 
+    [Comment].[Comment_Date_Heure] AS [Comment_Date_Heure], 
+    [Comment].[PostID] AS [PostID], 
+    [Comment].[UserID] AS [UserID]
+    FROM [dbo].[Comment] AS [Comment]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Post" EntityType="Self.Post" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Post].[Post_ID] AS [Post_ID], 
+    [Post].[Post_Name] AS [Post_Name], 
+    [Post].[Post_Message] AS [Post_Message], 
+    [Post].[Post_Date_Heure] AS [Post_Date_Heure], 
+    [Post].[CategoriesID] AS [CategoriesID], 
+    [Post].[UserID] AS [UserID]
+    FROM [dbo].[Post] AS [Post]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
