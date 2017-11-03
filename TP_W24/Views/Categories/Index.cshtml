@@ -37,7 +37,7 @@
                             <a href='/home/post'><img src="@item.Categorie_Path_Img.Trim()" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
                             <a href='/home/post'><h3 style="float: left;margin-left: 20px;">@item.CategorieName</h3></a>
                         </div>
-                    </article>*@
+                        </article>*@
                         
                         <article class="col-md-3 col-sm-6 col-xs-12 clearfix wow fadeInUp" data-wow-duration="500ms">
                             <div style="margin-top:7%;" class="note">
@@ -48,7 +48,7 @@
                                 <div class="excerpt">
                                     <h3>@item.CategorieName</h3>
                                     <p>@item.CategorieDescription</p>
-                                    <a class="btn btn-transparent" href='/Home/categorie'>Go</a>
+                                    <a class="btn btn-transparent" href='/Home/categorie?NoCat=@item.Categorie_ID'>Go</a>
                                 </div>
                             </div>
                         </article>
@@ -92,22 +92,21 @@
                         </aside>
                         <!-- End Single Widget -->
                         <!-- Single Widget -->
-                        <aside class="widget wow fadeInDown">
-                            <form action="#" method="post">
-                                <div class="widget-title">
-                                    <h3>Catégories</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <ul class="categories">
-                                    @foreach (var item in Model)
-                                    {
-                                        <li><i class="fa fa-comments-o"></i>@item.CategorieName</li>
-                                    }
-                                        @*<li><i class="fa fa-plus"></i> <a href="#">Ajouter</a></li>*@ @*// Pour les Admin*@
-                                    </ul>
-                                </div>
-                            </form>
-                        </aside>
+                                <aside class="widget wow fadeInDown">
+                                    <form action="#" method="post">
+                                        <div class="widget-title">
+                                            <h3>Catégories</h3>
+                                        </div>
+                                        <div class="widget-content">
+                                            <ul class="categories">
+                                                <li><i class="fa fa-comments-o"></i><a href='/Home/categorie?NoCat=1'>Bitcoins</a>
+                                                <li><i class="fa fa-comments-o"></i><a href='/Home/categorie?NoCat=4'>Verge</a>
+                                                <li><i class="fa fa-comments-o"></i><a href='/Home/categorie?NoCat=2'>Dogecoins</a>
+                                                <li><i class="fa fa-comments-o"></i><a href='/Home/categorie?NoCat=3'>Litecoins</a>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </aside>
                         <!-- End Single Widget -->
 
                     </div>

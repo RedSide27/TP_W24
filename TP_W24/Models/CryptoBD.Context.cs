@@ -13,10 +13,10 @@ namespace TP_W24.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CryptoBDEntities1 : DbContext
+    public partial class CryptoBDEntities2 : DbContext
     {
-        public CryptoBDEntities1()
-            : base("name=CryptoBDEntities1")
+        public CryptoBDEntities2()
+            : base("name=CryptoBDEntities2")
         {
         }
     

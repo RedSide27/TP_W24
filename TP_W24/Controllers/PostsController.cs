@@ -14,7 +14,7 @@ namespace TP_W24.Controllers
 {
     public class PostsController : ApiController
     {
-        private CryptoBDEntities1 db = new CryptoBDEntities1();
+        private CryptoBDEntities2 db = new CryptoBDEntities2();
 
         // GET: api/Posts
         public IQueryable<Post> GetPosts()

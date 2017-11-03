@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="CryptoBDModel1StoreContainer" CdmEntityContainer="CryptoBDEntities1">
+  <EntityContainerMapping StorageEntityContainer="CryptoBDModelStoreContainer" CdmEntityContainer="CryptoBDEntities2">
     <EntitySetMapping Name="C__MigrationHistory">
-      <EntityTypeMapping TypeName="CryptoBDModel1.C__MigrationHistory">
+      <EntityTypeMapping TypeName="CryptoBDModel.C__MigrationHistory">
         <MappingFragment StoreEntitySet="__MigrationHistory">
           <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
           <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetRoles">
-      <EntityTypeMapping TypeName="CryptoBDModel1.AspNetRole">
+      <EntityTypeMapping TypeName="CryptoBDModel.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -20,7 +20,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserClaims">
-      <EntityTypeMapping TypeName="CryptoBDModel1.AspNetUserClaim">
+      <EntityTypeMapping TypeName="CryptoBDModel.AspNetUserClaim">
         <MappingFragment StoreEntitySet="AspNetUserClaims">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -30,7 +30,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUserLogins">
-      <EntityTypeMapping TypeName="CryptoBDModel1.AspNetUserLogin">
+      <EntityTypeMapping TypeName="CryptoBDModel.AspNetUserLogin">
         <MappingFragment StoreEntitySet="AspNetUserLogins">
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
           <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -39,7 +39,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AspNetUsers">
-      <EntityTypeMapping TypeName="CryptoBDModel1.AspNetUser">
+      <EntityTypeMapping TypeName="CryptoBDModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -53,11 +53,12 @@
           <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
           <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPath_Img" ColumnName="UserPath_Img" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="CryptoBDModel1.Categorie">
+      <EntityTypeMapping TypeName="CryptoBDModel.Categorie">
         <MappingFragment StoreEntitySet="Categorie">
           <ScalarProperty Name="Categorie_ID" ColumnName="Categorie_ID" />
           <ScalarProperty Name="CategorieName" ColumnName="CategorieName" />
@@ -67,7 +68,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Comments">
-      <EntityTypeMapping TypeName="CryptoBDModel1.Comment">
+      <EntityTypeMapping TypeName="CryptoBDModel.Comment">
         <MappingFragment StoreEntitySet="Comment">
           <ScalarProperty Name="CommentID" ColumnName="CommentID" />
           <ScalarProperty Name="Comment_Text" ColumnName="Comment_Text" />
@@ -78,7 +79,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Posts">
-      <EntityTypeMapping TypeName="CryptoBDModel1.Post">
+      <EntityTypeMapping TypeName="CryptoBDModel.Post">
         <MappingFragment StoreEntitySet="Post">
           <ScalarProperty Name="Post_ID" ColumnName="Post_ID" />
           <ScalarProperty Name="Post_Name" ColumnName="Post_Name" />
@@ -90,7 +91,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="CryptoBDModel1.sysdiagram">
+      <EntityTypeMapping TypeName="CryptoBDModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -100,7 +101,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AspNetUserRoles" TypeName="CryptoBDModel1.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="CryptoBDModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
       <EndProperty Name="AspNetRoles">
         <ScalarProperty Name="Id" ColumnName="RoleId" />
       </EndProperty>

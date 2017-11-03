@@ -12,7 +12,7 @@ namespace TP_W24.Controllers
 {
     public class CategoriesController : Controller
     {
-        private CryptoBDEntities1 db = new CryptoBDEntities1();
+        private CryptoBDEntities2 db = new CryptoBDEntities2();
 
         // GET: Categories
         public ActionResult Index()
