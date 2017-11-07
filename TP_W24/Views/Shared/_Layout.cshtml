@@ -7,6 +7,14 @@
     <title>@ViewBag.Title Crypto Forum</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/tinymce/tinymce.js"></script>
+    <script>
+        Tinymce.init ({
+            selector: "textarea",
+                theme : "modern",
+                    height : 300
+        })
+    </script>
     <!-- Mobile Specific Meta
         ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -80,7 +88,6 @@
         <!--
         End Fixed Navigation
         ==================================== -->
-
         <div>
             @RenderBody()
         </div>

@@ -1,98 +1,59 @@
+    @model IEnumerable<TP_W24.Controllers.CommentDisplay>
+        @{ var post = (Model.Select(t => t.post).FirstOrDefault()).ToList();}
 <section id="blog-page">
     <div style="margin-top:85px;" class="container">
         <div class="row">
-            <div class="next-prev clearfix">
-                <a href="" class="prev-post">
-                    <i class="fa fa-angle-left fa-2x"></i>Précédent Post
-                </a>
-                <a href="" class="next-post pull-right">
-                    Post Suivant<i class="fa fa-angle-right fa-2x"></i>
-                </a>
-            </div>
-            <div class="author-about clearfix">
-                <h4>** Question du post **</h4>
-                <div class="post-author pull-left">
-                    <img src="/img/blog/avatar.png" alt="">
-                </div>
-                <div class="author-bio">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae modi quisquam laboriosam, expedita ea natus tempora unde sed sequi velit, quia veniam libero quos sunt.</p>
-                </div>
+    <div class="next-prev clearfix">
+        <a href="" class="prev-post">
+            <i class="fa fa-angle-left fa-2x"></i>Précédent Post
+        </a>
+        <a href="" class="next-post pull-right">
+            Post Suivant<i class="fa fa-angle-right fa-2x"></i>
+        </a>
+    </div>
+        @foreach (var item in post)
+    {
+    <div class="author-about clearfix">
+        
+        <h4>@item.PostName</h4>
+        
+        <div class="post-author pull-left">
+            <img src="@item.UserPathImg" alt="">
+        </div>
+        <div class="author-bio">
+            <p>@item.PostMessage</p>
+        </div>
+        
+    </div>
+        }
+        <br/>
+        <hr/>
+        <div id="comments" class="comments-section">
+            <h4>4 Commentaire</h4>
 
-            </div>
-
-            <div id="comments" class="comments-section">
-                <h4>4 Commentaire</h4>
-                <ol class="comment-list">
-                    <li id="comment-1">
-                        <div class="comment-wrap">
-                            <div class="author-avatar pull-left">
-                                <img src="/img/blog/user.jpg" alt="">
-                            </div>
-                            <div class="author-comment">
-                                <cite class="pull-left"><a href="#">Smithson</a></cite>
-                                <div style="clear:both"></div>
-                                <div class="comment-meta">
-                                    <i class="fa fa-calendar"></i> 26 aug 2013 at 07:30 PM
-                                </div>
-                            </div>
-                            <div class="comment-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, repellendus. Culpa nam aut vel. Ab, excepturi minus, quasi debitis quaerat animi, enim quod repellat minima dolores facere veniam quam quo!</p>
+            <ol class="comment-list">
+                @foreach (var item in Model)
+                {
+                <li id="comment-1">
+                    <div class="comment-wrap">
+                        <div class="author-avatar pull-left">
+                            <img style="width:75px;height:75px;" src="@item.User_PATH_IMG" alt="">
+                        </div>
+                        <div class="author-comment">
+                            <cite class="pull-left"><a href="#">@item.Username</a></cite>
+                            <div style="clear:both"></div>
+                            <div class="comment-meta">
+                                <i class="fa fa-calendar"></i>  @item.Comment_Date_Heure
                             </div>
                         </div>
-                        <ul>
-                            <li id="comment-2">
-                                <div class="comment-wrap">
-                                    <div class="author-avatar pull-left">
-                                        <img src="/img/blog/user.jpg" alt="">
-                                    </div>
-                                    <div class="author-comment">
-                                        <cite class="pull-left"><a href="#">Smithson</a></cite>
-                                        <div style="clear:both"></div>
-                                        <div class="comment-meta">
-                                            <i class="fa fa-calendar"></i> 26 aug 2013 at 07:30 PM
-                                        </div>
-                                    </div>
-                                    <div class="comment-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, repellendus. Culpa nam aut vel. Ab, excepturi minus, quasi debitis quaerat animi, enim quod repellat minima dolores facere veniam quam quo!</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li id="comment-3">
-                                <div class="comment-wrap">
-                                    <div class="author-avatar pull-left">
-                                        <img src="/img/blog/user.jpg" alt="">
-                                    </div>
-                                    <div class="author-comment">
-                                        <cite class="pull-left"><a href="#">Smithson</a></cite>
-                                        <div style="clear:both"></div>
-                                        <div class="comment-meta">
-                                            <i class="fa fa-calendar"></i> 26 aug 2013 at 07:30 PM
-                                        </div>
-                                    </div>
-                                    <div class="comment-content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, repellendus. Culpa nam aut vel. Ab, excepturi minus, quasi debitis quaerat animi, enim quod repellat minima dolores facere veniam quam quo!</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <div class="comment-wrap">
-                            <div class="author-avatar pull-left">
-                                <img src="/img/blog/user.jpg" alt="">
-                            </div>
-                            <div class="author-comment">
-                                <cite class="pull-left"><a href="#">Smithson</a></cite>
-                                <div style="clear:both"></div>
-                                <div class="comment-meta">
-                                    <i class="fa fa-calendar"></i> 26 aug 2013 at 07:30 PM
-                                </div>
-                            </div>
-                            <div class="comment-content">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, repellendus. Culpa nam aut vel. Ab, excepturi minus, quasi debitis quaerat animi, enim quod repellat minima dolores facere veniam quam quo!</p>
-                            </div>
+                        <div class="comment-content">
+                            <p>@item.Comment_Text</p>
                         </div>
+                    </div> 
                     </li>
-                </ol>
-            </div>
+                }
+            </ol>
+        </div>
             <div class="comment-reply-form">
                 <h3>Laisse ton avis</h3>
                 <form id="comment-form" method="post" action="#">
