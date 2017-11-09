@@ -2,103 +2,132 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using TP_W24.Models;
 
 namespace TP_W24.Controllers
 {
-    public class PostsController : ApiController
+    public class PostsController : Controller
     {
         private CryptoBDEntities2 db = new CryptoBDEntities2();
 
-        // GET: api/Posts
-        public IQueryable<Post> GetPosts()
+        // GET: Posts
+        public ActionResult Index()
         {
-            return db.Posts;
+            var posts = db.Posts.Include(p => p.AspNetUser).Include(p => p.Categorie);
+            return View(posts.ToList());
         }
 
-        // GET: api/Posts/5
-        [ResponseType(typeof(Post))]
-        public IHttpActionResult GetPost(int id)
+        // GET: Posts/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Post post = db.Posts.Find(id);
             if (post == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(post);
+            return View(post);
         }
 
-        // PUT: api/Posts/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutPost(int id, Post post)
+        // GET: Posts/Create
+        public ActionResult Create(int NoCat)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            ViewBag.CategorieName = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.CategorieName).FirstOrDefault().ToString();
+            ViewBag.FK_User_ID = new SelectList(db.AspNetUsers, "Id", "Email");
+            Session["CategorieID"] = NoCat;
+            ViewBag.ImgPATH = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.Categorie_Path_Img).FirstOrDefault();
+            return View();
+        }
 
-            if (id != post.Post_ID)
+        // POST: Posts/Create
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Post_ID,Post_Name,Post_Message,Post_Date_Heure,FK_Categories_ID,FK_User_ID")] Post post)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(post).State = EntityState.Modified;
-
-            try
-            {
+                post.Post_ID = 0;
+                post.Post_Date_Heure = DateTime.Now;
+                post.FK_User_ID = "80117640-40bc-472d-acd7-bdd75075962a";
+                post.FK_Categories_ID = (int)Session["CategorieID"];
+                db.Posts.Add(post);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PostExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            ViewBag.FK_User_ID = new SelectList(db.AspNetUsers, "Id", "Email", post.FK_User_ID);
+            ViewBag.FK_Categories_ID = new SelectList(db.Categories, "Categorie_ID", "CategorieName", post.FK_Categories_ID);
+            return View(post);
         }
 
-        // POST: api/Posts
-        [ResponseType(typeof(Post))]
-        public IHttpActionResult PostPost(Post post)
+        // GET: Posts/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.Posts.Add(post);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = post.Post_ID }, post);
-        }
-
-        // DELETE: api/Posts/5
-        [ResponseType(typeof(Post))]
-        public IHttpActionResult DeletePost(int id)
-        {
             Post post = db.Posts.Find(id);
             if (post == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            ViewBag.FK_User_ID = new SelectList(db.AspNetUsers, "Id", "Email", post.FK_User_ID);
+            ViewBag.FK_Categories_ID = new SelectList(db.Categories, "Categorie_ID", "CategorieName", post.FK_Categories_ID);
+            return View(post);
+        }
 
+        // POST: Posts/Edit/5
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Post_ID,Post_Name,Post_Message,Post_Date_Heure,FK_Categories_ID,FK_User_ID")] Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(post).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.FK_User_ID = new SelectList(db.AspNetUsers, "Id", "Email", post.FK_User_ID);
+            ViewBag.FK_Categories_ID = new SelectList(db.Categories, "Categorie_ID", "CategorieName", post.FK_Categories_ID);
+            return View(post);
+        }
+
+        // GET: Posts/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
+        }
+
+        // POST: Posts/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-
-            return Ok(post);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -109,10 +138,7 @@ namespace TP_W24.Controllers
             }
             base.Dispose(disposing);
         }
-
-        private bool PostExists(int id)
-        {
-            return db.Posts.Count(e => e.Post_ID == id) > 0;
-        }
     }
 }
+
+

@@ -12,7 +12,8 @@ namespace TP_W24.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Web.Mvc;
+
     public partial class CryptoBDEntities2 : DbContext
     {
         public CryptoBDEntities2()

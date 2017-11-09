@@ -51,7 +51,8 @@ namespace TP_W24.Controllers
                             CategorieName = db.Categories.Where(t=> t.Categorie_ID == p.FK_Categories_ID).Select(t=> t.CategorieName).FirstOrDefault()
                         });
             ViewBag.CategorieName = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.CategorieName).FirstOrDefault().ToString();
-
+            ViewBag.CategorieNumber = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.Categorie_ID).FirstOrDefault().ToString();
+            ViewBag.ImgPATH = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.Categorie_Path_Img).FirstOrDefault();
             return View(post.ToList());
         }
 
@@ -102,6 +103,7 @@ namespace TP_W24.Controllers
     {
         [Key, Column(Order = 0)]
         public int CommentID { get; set; }
+        [AllowHtml]
         public string Comment_Text { get; set; }
         public DateTime Comment_Date_Heure { get; set; }
         public int Post_ID { get; set; }
@@ -115,6 +117,7 @@ namespace TP_W24.Controllers
         [Key, Column(Order = 0)]
         public int PostID { get; set; }
         public string PostName { get; set; }
+        [AllowHtml]
         public string PostMessage { get; set; }
         public DateTime PostDateHeure { get; set; }
         public int PostCategorieID { get; set; }

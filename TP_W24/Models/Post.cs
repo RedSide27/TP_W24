@@ -11,7 +11,8 @@ namespace TP_W24.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Post
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,11 +23,11 @@ namespace TP_W24.Models
     
         public int Post_ID { get; set; }
         public string Post_Name { get; set; }
+        [AllowHtml]
         public string Post_Message { get; set; }
         public System.DateTime Post_Date_Heure { get; set; }
         public int FK_Categories_ID { get; set; }
         public string FK_User_ID { get; set; }
-    
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Categorie Categorie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
