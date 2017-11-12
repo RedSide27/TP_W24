@@ -1,5 +1,5 @@
-    @model IEnumerable<TP_W24.Controllers.CommentDisplay>
-        @{ var post = (Model.Select(t => t.post).FirstOrDefault()).ToList();}
+    @model IEnumerable<TP_W24.Controllers.PostCommentDisplay>
+        @{ var comment = Model.Select(t => t.comment).FirstOrDefault(); var Nbcom = ""; }
 <section id="blog-page">
     <div style="margin-top:85px;" class="container">
         <div class="row">
@@ -11,8 +11,9 @@
             Post Suivant<i class="fa fa-angle-right fa-2x"></i>
         </a>
     </div>
-        @foreach (var item in post)
-    {
+        @foreach (var item in Model)
+        {
+            Nbcom = item.NbComment.ToString();
     <div class="author-about clearfix">
         
         <h4>@item.PostName</h4>
@@ -21,7 +22,7 @@
             <img src="@item.UserPathImg" alt="">
         </div>
         <div class="author-bio">
-            <p>@item.PostMessage</p>
+            @Html.Raw(item.PostMessage)
         </div>
         
     </div>
@@ -29,10 +30,10 @@
         <br/>
         <hr/>
         <div id="comments" class="comments-section">
-            <h4>4 Commentaire</h4>
+            <h4>@Nbcom Commentaire</h4>
 
             <ol class="comment-list">
-                @foreach (var item in Model)
+                @foreach (var item in comment)
                 {
                 <li id="comment-1">
                     <div class="comment-wrap">
@@ -47,7 +48,7 @@
                             </div>
                         </div>
                         <div class="comment-content">
-                            <p>@item.Comment_Text</p>
+                            @Html.Raw(item.Comment_Text)
                         </div>
                     </div> 
                     </li>
@@ -61,7 +62,8 @@
                         <div class="col-md-12">
                             <!-- End .form-group -->
                             <div class="form-group">
-                                <textarea class="form-control" style="resize:none;" placeholder="Message *" id="message" name="message" rows="5" cols="12" required></textarea>
+                                @Html.TextAreaFor(model => model.Comment_Text, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Comment_Text, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <!-- End .form-group -->
@@ -77,3 +79,7 @@
         </div>	    <!-- End row -->
     </div>       <!-- End container -->
 </section>    <!-- End Section -->
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

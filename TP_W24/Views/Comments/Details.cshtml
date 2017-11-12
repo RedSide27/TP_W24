@@ -1,0 +1,50 @@
+﻿@model TP_W24.Models.Comment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Comment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment_Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment_Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment_Date_Heure)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment_Date_Heure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Post.Post_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Post.Post_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CommentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
