@@ -15,10 +15,34 @@ namespace TP_W24.Controllers
         private CryptoBDEntities2 db = new CryptoBDEntities2();
 
         // GET: Comments
-        public ActionResult Index()
+        public ActionResult Index(int NoCat, int NoPost)
         {
-            var comments = db.Comments.Include(c => c.AspNetUser).Include(c => c.Post);
-            return View(comments.ToList());
+            var Postcomment = (from p in db.Posts.Where(t => t.Post_ID == NoPost)
+                               select new PostCommentDisplay
+                               {
+                                   PostID = p.Post_ID,
+                                   PostName = p.Post_Name,
+                                   PostMessage = p.Post_Message,
+                                   PostDateHeure = p.Post_Date_Heure,
+                                   PostCategorieID = p.FK_Categories_ID,
+                                   PostUserID = p.FK_User_ID,
+                                   UserPathImg = db.AspNetUsers.Where(t => t.Id == p.FK_User_ID).Select(t => t.UserPath_Img).FirstOrDefault(),
+                                   UserName = db.AspNetUsers.Where(t => t.Id == p.FK_User_ID).Select(t => t.UserName).FirstOrDefault(),
+                                   NbComment = db.Comments.Where(t => t.FK_Post_ID == p.Post_ID).Count(),
+                                   CategorieName = db.Categories.Where(t => t.Categorie_ID == p.FK_Categories_ID).Select(t => t.CategorieName).FirstOrDefault(),
+                                   comment = (from c in db.Comments.Where(t => t.FK_Post_ID == p.Post_ID)
+                                              select new CommentDisplay
+                                              {
+                                                  CommentID = c.CommentID,
+                                                  Comment_Text = c.Comment_Text,
+                                                  Comment_Date_Heure = c.Comment_Date_Heure,
+                                                  Post_ID = c.FK_Post_ID,
+                                                  Username = db.AspNetUsers.Where(t => t.Id == c.FK_User_ID).Select(t => t.UserName).FirstOrDefault(),
+                                                  User_PATH_IMG = db.AspNetUsers.Where(t => t.Id == c.FK_User_ID).Select(t => t.UserPath_Img).FirstOrDefault(),
+                                              }).ToList()
+                               }).ToList();
+
+            return View(Postcomment.ToList());
         }
 
         // GET: Comments/Details/5

@@ -68,7 +68,7 @@
 
 					<!-- section title -->
 					<div class="title text-center wow fadeInDown">
-                        <a href="@Url.Action("Index", "Categories")"><h2> Caté<span class="color">gories</span></h2></a>
+                        <a href="@Url.Action("Posts", "Index")"><h2> Caté<span class="color">gories</span></h2></a>
 						<div class="border"></div>
 					</div>
 					<!-- /section title -->
@@ -87,7 +87,7 @@
                                     <div class="excerpt">
                                         <h3>@item.CategorieName</h3>
                                         <p>@item.CategorieDescription</p>
-                                        <a class="btn btn-transparent" href='/Home/categorie?NoCat=@item.Categorie_ID'>Go</a>
+                                        <a class="btn btn-transparent" href='/Posts/Index?NoCat=@item.Categorie_ID'>Go</a>
                                     </div>
                                 </div>
                             </article>

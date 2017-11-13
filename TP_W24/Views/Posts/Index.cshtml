@@ -1,57 +1,132 @@
-﻿@model IEnumerable<TP_W24.Models.Post>
+﻿@model IEnumerable<TP_W24.Controllers.PostDisplay>
+<!-- Start Blog Banner
+    ==================================== -->
+<section id="blog-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="blog-icon">
+                    <img style="width:78px;height:84px;" src="@ViewBag.ImgPATH" />
+                </div>
+                <div class="blog-title">
+                    <h1>Les @ViewBag.CategorieName</h1>
+                </div>
 
-@{
-    ViewBag.Title = "Index";
-}
+            </div>     <!-- End col-lg-12 -->
+        </div>	    <!-- End row -->
+    </div>       <!-- End container -->
+</section>    <!-- End Section -->
+<!-- Start Blog Post Section
+==================================== -->
+@*<a href='@Url.Action("post", "Home")'></a> pour lien de redirection*@
 
-<h2>Index</h2>
+<section id="blog-page">
+    <div class="container">
+        <div class="row">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Post_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Post_Message)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Post_Date_Heure)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Categorie.CategorieName)
-        </th>
-        <th></th>
-    </tr>
+            <div id="blog-posts" class="col-md-8 col-sm-8">
+                <div class="post-item">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Post_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Post_Message)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Post_Date_Heure)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Categorie.CategorieName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Post_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Post_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Post_ID })
-        </td>
-    </tr>
-}
+                    @foreach (var item in Model)
+                    {
+                        <article class="entry wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
 
-</table>
+                            <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                <a href='/Comments/Index?NoCat=@item.PostCategorieID&NoPost=@item.PostID'><img src="@item.UserPathImg" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                <a href='/Comments/Index?NoCat=@item.PostCategorieID&NoPost=@item.PostID'><h3 style="float: left;margin-left: 20px;">@item.PostName</h3></a>
+                            </div>
+                            <div class="post-meta">
+                                <span class="post-date">
+                                    <i class="fa fa-calendar"></i>@item.PostDateHeure
+                                </span>
+                                <span class="comments">
+                                    <i class="fa fa-comments"></i>@item.NbComment
+                                </span>
+                                <span class="author">
+                                    <i class="fa fa-user"></i><a href="#">@item.UserName</a>
+                                </span>
+                            </div>
+                        </article>
+                    }
+
+                    <!----------------------------- Pagination ----------------------------->
+                    <nav class="post-pagination wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <ul>
+                            <li class="disabled"><a href="#">&laquo;</a></li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">...</a></li>
+                            <li><a href="#">10</a></li>
+                            <li><a href="#">11</a></li>
+                            <li><a href="#">12</a></li>
+                            <li><a href="#">13</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!------------------------- Fin Pagination ----------------------------->
+            <!-- Widget Section -->
+            <div id="right-sidebar" class="col-md-4 col-sm-4">
+
+                <aside class="widget wow fadeInUp" data-wow-duration="1000ms">
+                    <div class="widget-title">
+                        <a href="/Posts/Create?NoCat=@ViewBag.CategorieNumber"><h3>Ajouter</h3></a>
+                    </div>
+                </aside>
+
+                <!------------------------------Recherche ----------------------------->
+                <aside class="widget wow fadeInUp" data-wow-duration="1000ms">
+                    <div class="widget-title">
+                        <h3>Rechercher</h3>
+                    </div>
+                    <div class="widget-content">
+                        <form action="#" id="search-form" method="get" role="search">
+                            <input type="text" class="form-control" placeholder="Recherche..." autocomplete="on" name="seach">
+                            <button type="submit" title="Search" id="search-submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </aside>
+                <!------------------------- Fin Recherche ----------------------------->
+                <!-- Single Widget -->
+                <aside class="widget wow fadeInDown">
+                    <div class="widget-title">
+                        <h3>Abonne Toi!</h3>
+                        <p>Abonne toi et recoit les alertes concernant tes sujets favori!</p>
+                    </div>
+                    <div class="widget-content">
+                        <form action="">
+                            <input type="email" name="email" class="form-control" placeholder="Entrez votre email" required="">
+                            <input type="submit" value="Envoyer" class="btn btn-transparent">
+                        </form>
+                    </div>
+                </aside>
+                <!-- End Single Widget -->
+                <!-- Single Widget -->
+                <aside class="widget wow fadeInDown">
+                    <form action="#" method="post">
+                        <div class="widget-title">
+                            <h3>Catégories</h3>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="categories">
+                                <li><i class="fa fa-comments-o"></i><a href='/Home/categorie?NoCat=1'>Bitcoins</a>
+                                <li><i class="fa fa-comments-o"></i><a href='/Home/categorie?NoCat=4'>Verge</a>
+                                <li><i class="fa fa-comments-o"></i><a href='/Home/categorie?NoCat=2'>Dogecoins</a>
+                                <li><i class="fa fa-comments-o"></i><a href='/Home/categorie?NoCat=3'>Litecoins</a>
+                            </ul>
+                        </div>
+                    </form>
+                </aside>
+                <!-- End Single Widget -->
+
+            </div>
+            <!-- End Widget Section -->
+
+        </div>	    <!-- End row -->
+    </div>       <!-- End container -->
+</section>    <!-- End Section -->

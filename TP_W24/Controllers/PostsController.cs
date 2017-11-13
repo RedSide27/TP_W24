@@ -15,10 +15,26 @@ namespace TP_W24.Controllers
         private CryptoBDEntities2 db = new CryptoBDEntities2();
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int NoCat)
         {
-            var posts = db.Posts.Include(p => p.AspNetUser).Include(p => p.Categorie);
-            return View(posts.ToList());
+            var post = (from p in db.Posts.Where(t => t.FK_Categories_ID == NoCat)
+                        select new PostDisplay
+                        {
+                            PostID = p.Post_ID,
+                            PostName = p.Post_Name,
+                            PostMessage = p.Post_Message,
+                            PostDateHeure = p.Post_Date_Heure,
+                            PostCategorieID = p.FK_Categories_ID,
+                            PostUserID = p.FK_User_ID,
+                            UserPathImg = db.AspNetUsers.Where(t => t.Id == p.FK_User_ID).Select(t => t.UserPath_Img).FirstOrDefault(),
+                            UserName = db.AspNetUsers.Where(t => t.Id == p.FK_User_ID).Select(t => t.UserName).FirstOrDefault(),
+                            NbComment = db.Comments.Where(t => t.FK_Post_ID == p.Post_ID).Count(),
+                            CategorieName = db.Categories.Where(t => t.Categorie_ID == p.FK_Categories_ID).Select(t => t.CategorieName).FirstOrDefault()
+                        });
+            ViewBag.CategorieName = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.CategorieName).FirstOrDefault().ToString();
+            ViewBag.CategorieNumber = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.Categorie_ID).FirstOrDefault().ToString();
+            ViewBag.ImgPATH = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.Categorie_Path_Img).FirstOrDefault();
+            return View(post.ToList());
         }
 
         // GET: Posts/Details/5
