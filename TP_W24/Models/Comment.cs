@@ -11,10 +11,12 @@ namespace TP_W24.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Comment
     {
         public int CommentID { get; set; }
+        [AllowHtml]
         public string Comment_Text { get; set; }
         public System.DateTime Comment_Date_Heure { get; set; }
         public int FK_Post_ID { get; set; }

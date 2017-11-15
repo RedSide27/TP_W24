@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<TP_W24.Controllers.PostCommentDisplay>
-@{ var comment = Model.Select(t => t.comment).FirstOrDefault(); var Nbcom = ""; }
+@{
+    var comment = Model.Select(t => t.comment).FirstOrDefault();
+    var Nbcom = "";
+ }
 <section id="blog-page">
     <div style="margin-top:85px;" class="container">
         <div class="row">
@@ -55,26 +58,34 @@
                     }
                 </ol>
             </div>
+
+
             <div class="comment-reply-form">
                 <h3>Laisse ton avis</h3>
                 <form id="comment-form" method="post" action="#">
+                    <input type="hidden" name="FK_Post_ID" value="@Model.Select(t=>t.PostID).FirstOrDefault()" />
+                    <input type="hidden" name="FK_User_ID" value="@Model.Select(t=>t.PostUserID).FirstOrDefault()" />
+                    <input type="hidden" name="NoCat" value="@Model.Select(t=>t.PostCategorieID).FirstOrDefault()" />
+                    <input type="hidden" name="NoPost" value="@Model.Select(t=>t.PostID).FirstOrDefault()" />
                     <div class="row">
                         <div class="col-md-12">
                             <!-- End .form-group -->
                             <div class="form-group">
-                                <textarea class="form-control" style="resize:none;" placeholder="Message *" id="message" name="message" rows="5" cols="12" required></textarea>
+                                <textarea class="form-control" style="resize:none;" placeholder="Message *" id="message" name="Comment_Text" rows="5" cols="12"></textarea>
                             </div>
                         </div>
                         <!-- End .form-group -->
                         <div class="col-md-12" style="margin-top:10px">
                             <div class="form-group">
-                                <input type="submit" id="post-comment" value="Envoyée " class="btn btn-transparent">
+                                <input type="submit" value="Envoyée" class="btn btn-transparent"/>
                             </div>
                         </div>
                         <!-- End .form-group -->
                     </div>
                 </form>
             </div><!-- End Single Post -->
+
+
         </div>	    <!-- End row -->
     </div>       <!-- End container -->
 </section>    <!-- End Section -->

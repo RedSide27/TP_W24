@@ -17,6 +17,7 @@ namespace TP_W24.Controllers
         // GET: Comments
         public ActionResult Index(int NoCat, int NoPost)
         {
+            var vue = new Comment();
             var Postcomment = (from p in db.Posts.Where(t => t.Post_ID == NoPost)
                                select new PostCommentDisplay
                                {
@@ -39,9 +40,8 @@ namespace TP_W24.Controllers
                                                   Post_ID = c.FK_Post_ID,
                                                   Username = db.AspNetUsers.Where(t => t.Id == c.FK_User_ID).Select(t => t.UserName).FirstOrDefault(),
                                                   User_PATH_IMG = db.AspNetUsers.Where(t => t.Id == c.FK_User_ID).Select(t => t.UserPath_Img).FirstOrDefault(),
-                                              }).ToList()
+                                              }).ToList(),
                                }).ToList();
-
             return View(Postcomment.ToList());
         }
 
@@ -72,14 +72,15 @@ namespace TP_W24.Controllers
         // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CommentID,Comment_Text,Comment_Date_Heure,FK_Post_ID,FK_User_ID")] Comment comment)
+        public ActionResult Index([Bind(Include = "Comment_Text,FK_Post_ID,FK_User_ID")] Comment comment,int NoPost,int NoCat)
         {
             if (ModelState.IsValid)
             {
+                comment.CommentID = 0;
+                comment.Comment_Date_Heure = DateTime.Now;
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { NoCat = NoCat, NoPost = NoPost });
             }
 
             ViewBag.FK_User_ID = new SelectList(db.AspNetUsers, "Id", "Email", comment.FK_User_ID);
