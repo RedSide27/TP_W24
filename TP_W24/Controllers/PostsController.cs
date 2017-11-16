@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,8 +16,12 @@ namespace TP_W24.Controllers
         private CryptoBDEntities2 db = new CryptoBDEntities2();
 
         // GET: Posts
-        public ActionResult Index(int NoCat)
+        public ActionResult Index(int NoCat,int? page)
         {
+            var currentPage = (page ?? 1);
+            ViewBag.page = currentPage;
+            var nbrPerPage = 5;
+
             var post = (from p in db.Posts.Where(t => t.FK_Categories_ID == NoCat)
                         select new PostDisplay
                         {
@@ -30,11 +35,11 @@ namespace TP_W24.Controllers
                             UserName = db.AspNetUsers.Where(t => t.Id == p.FK_User_ID).Select(t => t.UserName).FirstOrDefault(),
                             NbComment = db.Comments.Where(t => t.FK_Post_ID == p.Post_ID).Count(),
                             CategorieName = db.Categories.Where(t => t.Categorie_ID == p.FK_Categories_ID).Select(t => t.CategorieName).FirstOrDefault()
-                        });
+                        }).ToList();
             ViewBag.CategorieName = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.CategorieName).FirstOrDefault().ToString();
             ViewBag.CategorieNumber = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.Categorie_ID).FirstOrDefault().ToString();
             ViewBag.ImgPATH = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.Categorie_Path_Img).FirstOrDefault();
-            return View(post.ToList());
+            return View(post.ToPagedList(currentPage, nbrPerPage));
         }
 
         // GET: Posts/Details/5

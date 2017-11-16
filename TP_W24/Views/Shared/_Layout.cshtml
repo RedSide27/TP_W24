@@ -75,14 +75,19 @@
             </div>
 
             <!-- main nav -->
-            <nav class="collapse navbar-collapse navbar-right" role="Navigation">
-                <ul id="nav" class="nav navbar-nav">
-                    <li>@Html.ActionLink("Accueil", "index", "Home")</li>
-                    <li>@Html.ActionLink("Catégorie", "index", "Categories")</li>
-                    <li>@Html.ActionLink("Login", "login", "Account")</li>
-                    <li>@Html.ActionLink("S'inscrire", "register", "Account")</li>
-                </ul>
-            </nav>
+    <nav class="collapse navbar-collapse navbar-right" role="Navigation">
+        <ul id="nav" class="nav navbar-nav">
+            <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li>@Html.ActionLink("À propos de", "About", "Home")</li>
+                <li>@Html.ActionLink("Ajouter Catégorie","Create", "Categories")</li>
+                <li>@Html.ActionLink("Ajouter Catégorie", "Delete", "Categories")</li>
+            }
+        </ul>
+        @Html.Partial("_LoginPartial")
+    </nav>
+
             <!-- /main nav -->
 
         <!--

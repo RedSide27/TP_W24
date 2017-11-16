@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,8 +16,12 @@ namespace TP_W24.Controllers
         private CryptoBDEntities2 db = new CryptoBDEntities2();
 
         // GET: Comments
-        public ActionResult Index(int NoCat, int NoPost)
+        public ActionResult Index(int NoCat, int NoPost, int? page)
         {
+            var currentPage = (page ?? 1);
+            ViewBag.page = currentPage;
+            var nbrPerPage = 5;
+
             var vue = new Comment();
             var Postcomment = (from p in db.Posts.Where(t => t.Post_ID == NoPost)
                                select new PostCommentDisplay
@@ -42,7 +47,7 @@ namespace TP_W24.Controllers
                                                   User_PATH_IMG = db.AspNetUsers.Where(t => t.Id == c.FK_User_ID).Select(t => t.UserPath_Img).FirstOrDefault(),
                                               }).ToList(),
                                }).ToList();
-            return View(Postcomment.ToList());
+            return View(Postcomment.ToPagedList(currentPage,nbrPerPage));
         }
 
         // GET: Comments/Details/5
