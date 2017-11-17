@@ -78,6 +78,7 @@
     <nav class="collapse navbar-collapse navbar-right" role="Navigation">
         <ul id="nav" class="nav navbar-nav">
             <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
+            <li>@Html.ActionLink("Catégorie", "index", "Categories")</li>
             @if (User.IsInRole("Admin"))
             {
                 <li>@Html.ActionLink("À propos de", "About", "Home")</li>

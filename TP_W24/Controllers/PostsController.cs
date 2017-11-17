@@ -82,7 +82,7 @@ namespace TP_W24.Controllers
                 post.FK_Categories_ID = (int)Session["CategorieID"];
                 db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { NoCat = (int)Session["CategorieID"] });
             }
 
             ViewBag.FK_User_ID = new SelectList(db.AspNetUsers, "Id", "Email", post.FK_User_ID);
