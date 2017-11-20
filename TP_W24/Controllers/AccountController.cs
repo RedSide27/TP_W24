@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using TP_W24.Models;
 using System.Data.Entity;
 using System.Net;
+using System.Web.UI.WebControls;
+using System.IO;
 
 namespace TP_W24.Controllers
 {
@@ -40,13 +42,27 @@ namespace TP_W24.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserPath_Img")] AspNetUser aspNetUser)
+        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserPath_Img")] AspNetUser aspNetUser, HttpPostedFileBase fileIMG)
         {
+            if (fileIMG != null && fileIMG.ContentLength > 0)
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("../img/PicUser"),
+                                               Path.GetFileName(fileIMG.FileName));
+                    fileIMG.SaveAs(path);
+                    aspNetUser.UserPath_Img = "../img/PicUser/" + fileIMG.FileName ;
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
+
             if (ModelState.IsValid)
             {
+
                 db.Entry(aspNetUser).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View(aspNetUser);
         }
