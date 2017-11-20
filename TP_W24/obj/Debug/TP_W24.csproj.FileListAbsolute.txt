@@ -842,3 +842,7 @@ C:\Alexandre Dupont\TP_W24\TP_W24\obj\Debug\TP_W24.csprojResolveAssemblyReferenc
 C:\Alexandre Dupont\TP_W24\TP_W24\obj\Debug\TP_W24.csproj.CoreCompileInputs.cache
 C:\Alexandre Dupont\TP_W24\TP_W24\obj\Debug\TP_W24.dll
 C:\Alexandre Dupont\TP_W24\TP_W24\obj\Debug\TP_W24.pdb
+C:\Alexandre Dupont\W24\TP_W24\TP_W24\bin\PagedList.dll
+C:\Alexandre Dupont\W24\TP_W24\TP_W24\bin\PagedList.Mvc.dll
+C:\Alexandre Dupont\W24\TP_W24\TP_W24\bin\PagedList.xml
+C:\Alexandre Dupont\W24\TP_W24\TP_W24\bin\PagedList.Mvc.xml

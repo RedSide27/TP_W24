@@ -21,7 +21,7 @@ namespace TP_W24.Controllers
             var currentPage = (page ?? 1);
             ViewBag.page = currentPage;
             var nbrPerPage = 5;
-
+            ViewBag.UserID = db.AspNetUsers.Where(t => t.UserName == User.Identity.Name).Select(t => t.Id).FirstOrDefault();
             var vue = new Comment();
             var Postcomment = (from p in db.Posts.Where(t => t.Post_ID == NoPost)
                                select new PostCommentDisplay

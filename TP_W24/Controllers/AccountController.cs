@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TP_W24.Models;
+using System.Data.Entity;
+using System.Net;
 
 namespace TP_W24.Controllers
 {
@@ -17,6 +19,37 @@ namespace TP_W24.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private CryptoBDEntities2 db = new CryptoBDEntities2();
+
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            AspNetUser aspNetUser = db.AspNetUsers.Find(id);
+            if (aspNetUser == null)
+            {
+                return HttpNotFound();
+            }
+            return View(aspNetUser);
+        }
+
+        // POST: AspNetUsers/Edit/5
+        // Afin de déjouer les attaques par sur-validation, activez les propriétés spécifiques que vous voulez lier. Pour 
+        // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserPath_Img")] AspNetUser aspNetUser)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(aspNetUser).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(aspNetUser);
+        }
 
         public AccountController()
         {
@@ -79,6 +112,7 @@ namespace TP_W24.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["Username"] = model.UserName;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

@@ -50,7 +50,6 @@ namespace TP_W24.Models
     {
         [Required]
         [Display(Name = "Nom d'utilisateur")]
-        [EmailAddress]
         public string UserName { get; set; }
 
         [Required]

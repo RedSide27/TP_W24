@@ -67,7 +67,7 @@
                     <h3>Laisse ton avis</h3>
                     <form id="comment-form" method="post" action="#">
                         <input type="hidden" name="FK_Post_ID" value="@Model.Select(t=>t.PostID).FirstOrDefault()" />
-                        <input type="hidden" name="FK_User_ID" value="@Model.Select(t=>t.PostUserID).FirstOrDefault()" />
+                        <input type="hidden" name="FK_User_ID" value="@ViewBag.UserID" />
                         <input type="hidden" name="NoCat" value="@Model.Select(t=>t.PostCategorieID).FirstOrDefault()" />
                         <input type="hidden" name="NoPost" value="@Model.Select(t=>t.PostID).FirstOrDefault()" />
                         <div class="row">

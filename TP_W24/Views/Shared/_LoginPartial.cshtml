@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right">
         <li>
-            @Html.ActionLink(User.Identity.GetUserName(), "AccountEdit", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <a href="/Account/Edit?id=@User.Identity.GetUserId()">@User.Identity.GetUserName()</a>
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
     </ul>
