@@ -1,7 +1,11 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,9 +19,22 @@ namespace TP_W24.Controllers
         private CryptoBDEntities2 db = new CryptoBDEntities2();
 
         // GET: Categories
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Categories.ToList());
+            var currentPage = (page ?? 1);
+            ViewBag.page = currentPage;
+            var nbrPerPage = 8;
+            var categorie = (from c in db.Categories
+                             select new CategorieDisplay
+                             {
+                                 Categorie_ID = c.Categorie_ID,
+                                 CategorieName = c.CategorieName,
+                                 CategorieDescription = c.CategorieDescription,
+                                 Categorie_Path_Img = c.Categorie_Path_Img
+                             }).ToList();
+
+
+            return View(categorie.ToPagedList(currentPage, nbrPerPage));
         }
 
         // GET: Categories/Details/5
@@ -46,8 +63,20 @@ namespace TP_W24.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Categorie_ID,CategorieName,CategorieDescription,Categorie_Path_Img")] Categorie categorie)
+        public ActionResult Create([Bind(Include = "Categorie_ID,CategorieName,CategorieDescription,Categorie_Path_Img")] Categorie categorie, HttpPostedFileBase fileIMG)
         {
+            if (fileIMG != null && fileIMG.ContentLength > 0)
+                try
+                {
+                    string path = Path.Combine(Server.MapPath("/img/blog"),
+                                               Path.GetFileName(fileIMG.FileName));
+                    fileIMG.SaveAs(path);
+                    categorie.Categorie_Path_Img = "/img/blog/" + fileIMG.FileName;
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Message = "ERROR:" + ex.Message.ToString();
+                }
             if (ModelState.IsValid)
             {
                 db.Categories.Add(categorie);
@@ -70,6 +99,8 @@ namespace TP_W24.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ImgPath = db.Categories.Where(t => t.Categorie_ID == id).Select(t => t.Categorie_Path_Img).FirstOrDefault();
+            ViewBag.ImgID = id;
             return View(categorie);
         }
 
@@ -78,8 +109,20 @@ namespace TP_W24.Controllers
         // plus de détails, voir  http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Categorie_ID,CategorieName,CategorieDescription,Categorie_Path_Img")] Categorie categorie)
+        public ActionResult Edit([Bind(Include = "Categorie_ID,CategorieName,CategorieDescription,Categorie_Path_Img")] Categorie categorie, HttpPostedFileBase fileIMG,string ImgPath, int ImgID)
         {
+            if (fileIMG != null && fileIMG.ContentLength > 0)
+            {
+                string path = Path.Combine(Server.MapPath("/img/blog"),
+                                           Path.GetFileName(fileIMG.FileName));
+                fileIMG.SaveAs(path);
+                categorie.Categorie_Path_Img = "/img/blog/" + fileIMG.FileName;
+            }
+            else
+            {
+                categorie.Categorie_Path_Img = ImgPath;
+            }
+            categorie.Categorie_ID = ImgID;
             if (ModelState.IsValid)
             {
                 db.Entry(categorie).State = EntityState.Modified;
@@ -96,23 +139,13 @@ namespace TP_W24.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categorie categorie = db.Categories.Find(id);
-            if (categorie == null)
+            else
             {
-                return HttpNotFound();
+                Categorie categorie = db.Categories.Find(id);
+                db.Categories.Remove(categorie);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View(categorie);
-        }
-
-        // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Categorie categorie = db.Categories.Find(id);
-            db.Categories.Remove(categorie);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -123,5 +156,17 @@ namespace TP_W24.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
+
+    public class CategorieDisplay
+    {
+        [Key, Column(Order = 0)]
+        public int Categorie_ID { get; set; }
+        public string CategorieName { get; set; }
+        [AllowHtml]
+        public string CategorieDescription { get; set; }
+        public string Categorie_Path_Img { get; set; }
+    }
+
 }

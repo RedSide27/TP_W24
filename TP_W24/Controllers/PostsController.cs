@@ -91,7 +91,7 @@ namespace TP_W24.Controllers
         }
 
         // GET: Posts/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id,int NoCat)
         {
             if (id == null)
             {
@@ -102,7 +102,10 @@ namespace TP_W24.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ImgPATH = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.Categorie_Path_Img).FirstOrDefault();
+            ViewBag.CategorieName = db.Categories.Where(t => t.Categorie_ID == NoCat).Select(t => t.CategorieName).FirstOrDefault().ToString();
             ViewBag.FK_User_ID = new SelectList(db.AspNetUsers, "Id", "Email", post.FK_User_ID);
+            ViewBag.Categories_ID = NoCat;
             ViewBag.FK_Categories_ID = new SelectList(db.Categories, "Categorie_ID", "CategorieName", post.FK_Categories_ID);
             return View(post);
         }
@@ -112,13 +115,13 @@ namespace TP_W24.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Post_ID,Post_Name,Post_Message,Post_Date_Heure,FK_Categories_ID,FK_User_ID")] Post post)
+        public ActionResult Edit([Bind(Include = "Post_ID,Post_Name,Post_Message,Post_Date_Heure,FK_Categories_ID,FK_User_ID")] Post post,int NoCat)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { NoCat = NoCat });
             }
             ViewBag.FK_User_ID = new SelectList(db.AspNetUsers, "Id", "Email", post.FK_User_ID);
             ViewBag.FK_Categories_ID = new SelectList(db.Categories, "Categorie_ID", "CategorieName", post.FK_Categories_ID);
@@ -126,29 +129,12 @@ namespace TP_W24.Controllers
         }
 
         // GET: Posts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
-            if (post == null)
-            {
-                return HttpNotFound();
-            }
-            return View(post);
-        }
-
-        // POST: Posts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int? id,int NoCat)
         {
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { NoCat = NoCat});
         }
 
         protected override void Dispose(bool disposing)

@@ -46,6 +46,11 @@
                                 <span class="author">
                                     <i class="fa fa-user"></i><a href="#">@item.UserName</a>
                                 </span>
+                                @if (User.IsInRole("admin"))
+                                {
+                                   <a href="/Posts/Edit?id=@item.PostID&NoCat=@item.PostCategorieID"><span class="glyphicon glyphicon-pencil"></span></a>
+                                   <a style="margin-left:3%;" href="/Posts/Delete?id=@item.PostID&NoCat=@item.PostCategorieID"><span class="glyphicon glyphicon-remove"></span></a>
+                                }
                             </div>
                         </article>
                     }
@@ -74,7 +79,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <div class="widget-title">
-                            <a href="/Posts/Create?NoCat=@ViewBag.CategorieNumber"><h3>Ajouter</h3></a>
+                            <a href="/Posts/Create?NoCat=@ViewBag.CategorieNumber"><h3>+ Poser une Question ?</h3></a>
                         </div>
 
                     }

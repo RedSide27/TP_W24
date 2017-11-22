@@ -1,5 +1,5 @@
-﻿@model IEnumerable<TP_W24.Models.Categorie>
-
+﻿@model PagedList.IPagedList<TP_W24.Controllers.CategorieDisplay>
+@using PagedList.Mvc
 @{
     ViewBag.Title = "Index";
 }
@@ -30,87 +30,123 @@
         <div class="row">
             <div id="blog-posts" class="col-md-8 col-sm-8">
                 <div class="post-item">
-                    @foreach (var item in Model)
-                    {
-                    @*<article class="entry wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                        <div style="height:60px;margin-top: 25px;" class="post-excerpt">
-                            <a href='/home/post'><img src="@item.Categorie_Path_Img.Trim()" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
-                            <a href='/home/post'><h3 style="float: left;margin-left: 20px;">@item.CategorieName</h3></a>
-                        </div>
-                        </article>*@
-                        
-                        <article class="col-md-3 col-sm-6 col-xs-12 clearfix wow fadeInUp" data-wow-duration="500ms">
-                            <div style="margin-top:7%;" class="note">
-                                <div class="media-wrapper">
-                                    <img style="width:260.5px;height:173.66px;" src="@item.Categorie_Path_Img" alt="amazing caves coverimage" class="img-responsive">
+                    <div>
+                        @foreach (var item in Model)
+                        {
+                            @*<article class="entry wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                <div style="height:60px;margin-top: 25px;" class="post-excerpt">
+                                    <a href='/home/post'><img src="@item.Categorie_Path_Img.Trim()" alt="Flying bicycle" style="width: 50px;height: 50px;float: left;" class="img-responsive"></a>
+                                    <a href='/home/post'><h3 style="float: left;margin-left: 20px;">@item.CategorieName</h3></a>
                                 </div>
+                                </article>*@
 
-                                <div class="excerpt">
-                                    <h3>@item.CategorieName</h3>
-                                    <p>@item.CategorieDescription</p>
-                                    <a class="btn btn-transparent" href='/Posts/Index?NoCat=@item.Categorie_ID'>Go</a>
+                            <article class="col-md-3 col-sm-6 col-xs-12 clearfix wow fadeInUp" data-wow-duration="500ms">
+                                <div style="margin-top:7%;" class="note">
+                                    <div class="media-wrapper">
+                                        <img style="width:260.5px;height:173.66px;" src="@item.Categorie_Path_Img" alt="amazing caves coverimage" class="img-responsive">
+                                    </div>
+
+                                    <div class="excerpt">
+                                        <h3>@item.CategorieName</h3>
+                                        <p>@item.CategorieDescription</p>
+                                        @if (User.IsInRole("admin"))
+                                        {
+                                            <center>
+                                                <div>
+                                                    <a href="/Categories/Edit?id=@item.Categorie_ID"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                    <a style="margin-left:5%;" href="/Categories/Delete?id=@item.Categorie_ID"><span class="glyphicon glyphicon-remove"></span></a>
+                                                </div>
+                                            </center>
+                                        }
+                                            
+                                        <center><a class="btn btn-transparent" href='/Posts/Index?NoCat=@item.Categorie_ID'>Go</a></center>
+
+</div>
                                 </div>
-                            </div>
-                        </article>
-						
-                    }
-                         
-                        </div>
-                      </div>
+                            </article>
 
-                        
-                            <!-- Widget Section -->
-                            <div id="right-sidebar" class="col-md-4 col-sm-4">
-
-                                <!------------------------------Recherche ----------------------------->
-                                <aside class="widget wow fadeInUp" data-wow-duration="1000ms">
-                                    <div class="widget-title">
-                                        <h3>Rechercher</h3>
-                                    </div>
-                                    <div class="widget-content">
-                                        <form action="#" id="search-form" method="get" role="search">
-                                            <input type="text" class="form-control" placeholder="Recherche..." autocomplete="on" name="seach">
-                                            <button type="submit" title="Search" id="search-submit">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </aside>
-                        <!------------------------- Fin Recherche ----------------------------->
-                        <!-- Single Widget -->
-                        <aside class="widget wow fadeInDown">
-                            <div class="widget-title">
-                                <h3>Abonne Toi!</h3>
-                                <p>Abonne toi et recoit les alertes concernant tes sujets favori!</p>
-                            </div>
-                            <div class="widget-content">
-                                <form action="">
-                                    <input type="email" name="email" class="form-control" placeholder="Entrez votre email" required="">
-                                    <input type="submit" value="Envoyer" class="btn btn-transparent">
-                                </form>
-                            </div>
-                        </aside>
-                        <!-- End Single Widget -->
-                        <!-- Single Widget -->
-                                <aside class="widget wow fadeInDown">
-                                    <form action="#" method="post">
-                                        <div class="widget-title">
-                                            <h3>Catégories</h3>
-                                        </div>
-                                        <div class="widget-content">
-                                            <ul class="categories">
-                                                <li><i class="fa fa-comments-o"></i><a href='/Posts/Index?NoCat=1'>Bitcoins</a>
-                                                <li><i class="fa fa-comments-o"></i><a href='/Posts/Index?NoCat=4'>Verge</a>
-                                                <li><i class="fa fa-comments-o"></i><a href='/Posts/Index?NoCat=2'>Dogecoins</a>
-                                                <li><i class="fa fa-comments-o"></i><a href='/Posts/Index?NoCat=3'>Litecoins</a>
-                                            </ul>
-                                        </div>
-                                    </form>
-                                </aside>
-                        <!-- End Single Widget -->
-
+                        }
                     </div>
-                    <!-- End Widget Section -->
-                </div>	    <!-- End row -->
-            </div>       <!-- End container -->
+                    <!----------------------------- Pagination ----------------------------->
+                    <nav class="post-pagination wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                        <div class="col-md-12" style="margin-top:150px;">
+
+                            Page @Model.PageNumber / @Model.PageCount
+
+
+                            @*Permet d'afficher les differents numero de page*@
+
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { NoCat = ViewBag.CategorieNumber, page = page }))
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <!------------------------- Fin Pagination ----------------------------->
+            <!-- Widget Section -->
+            <div id="right-sidebar" class="col-md-4 col-sm-4">
+
+                <aside class="widget wow fadeInUp" data-wow-duration="1000ms">
+                    @if (User.IsInRole("admin"))
+                    {
+                        <div class="widget-title">
+                            <a href="/Categories/Create"><h3>+ Ajouter Catégorie</h3></a>
+                        </div>
+
+                    }
+
+                </aside>
+
+                <!------------------------------Recherche ----------------------------->
+                <aside class="widget wow fadeInUp" data-wow-duration="1000ms">
+                    <div class="widget-title">
+                        <h3>Rechercher</h3>
+                    </div>
+                    <div class="widget-content">
+                        <form action="#" id="search-form" method="get" role="search">
+                            <input type="text" class="form-control" placeholder="Recherche..." autocomplete="on" name="seach">
+                            <button type="submit" title="Search" id="search-submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </aside>
+                <!------------------------- Fin Recherche ----------------------------->
+                <!-- Single Widget -->
+                <aside class="widget wow fadeInDown">
+                    <div class="widget-title">
+                        <h3>Abonne Toi!</h3>
+                        <p>Abonne toi et recoit les alertes concernant tes sujets favori!</p>
+                    </div>
+                    <div class="widget-content">
+                        <form action="">
+                            <input type="email" name="email" class="form-control" placeholder="Entrez votre email" required="">
+                            <input type="submit" value="Envoyer" class="btn btn-transparent">
+                        </form>
+                    </div>
+                </aside>
+                <!-- End Single Widget -->
+                <!-- Single Widget -->
+                <aside class="widget wow fadeInDown">
+                    <form action="#" method="post">
+                        <div class="widget-title">
+                            <h3>Catégories</h3>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="categories">
+                                <li><i class="fa fa-comments-o"></i><a href='/Posts/Index?NoCat=1'>Bitcoins</a>
+                                <li><i class="fa fa-comments-o"></i><a href='/Posts/Index?NoCat=4'>Verge</a>
+                                <li><i class="fa fa-comments-o"></i><a href='/Posts/Index?NoCat=2'>Dogecoins</a>
+                                <li><i class="fa fa-comments-o"></i><a href='/Posts/Index?NoCat=3'>Litecoins</a>
+                            </ul>
+                        </div>
+                    </form>
+                </aside>
+                <!-- End Single Widget -->
+
+            </div>
+            <!-- End Widget Section -->
+
+        </div>	    <!-- End row -->
+    </div>       <!-- End container -->
 </section>    <!-- End Section -->

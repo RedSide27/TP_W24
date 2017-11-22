@@ -11,7 +11,8 @@ namespace TP_W24.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+
     public partial class Categorie
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,7 @@ namespace TP_W24.Models
     
         public int Categorie_ID { get; set; }
         public string CategorieName { get; set; }
+        [AllowHtml]
         public string CategorieDescription { get; set; }
         public string Categorie_Path_Img { get; set; }
     

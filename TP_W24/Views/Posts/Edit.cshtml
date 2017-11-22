@@ -3,9 +3,21 @@
 @{
     ViewBag.Title = "Edit";
 }
+<section id="blog-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="blog-icon">
+                    <img style="width:78px;height:84px;" src="@ViewBag.ImgPATH" />
+                </div>
+                <div class="blog-title">
+                    <h1>Les @ViewBag.CategorieName</h1>
+                </div>
 
-<h2>Edit</h2>
-
+            </div>     <!-- End col-lg-12 -->
+        </div>	    <!-- End row -->
+    </div>       <!-- End container -->
+</section>
 
 @using (Html.BeginForm())
 {
@@ -16,31 +28,24 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Post_ID)
-
+        @Html.HiddenFor(model => model.Post_Date_Heure)
+        @Html.HiddenFor(model => model.FK_User_ID)
+        
         <div class="form-group">
-            @Html.LabelFor(model => model.Post_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-8 col-md-offset-2">
+                <center><h5>Titre</h5></center>
                 @Html.EditorFor(model => model.Post_Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Post_Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Post_Message, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_Message, new { htmlAttributes = new { @class = "form-control" } })
+            <h4 class="control-label col-md-2">Message</h4>
+            <div class="col-md-8">
+                @Html.TextAreaFor(model => model.Post_Message, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Post_Message, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Post_Date_Heure, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Post_Date_Heure, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Post_Date_Heure, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.FK_Categories_ID, "FK_Categories_ID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -48,18 +53,10 @@
                 @Html.ValidationMessageFor(model => model.FK_Categories_ID, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FK_User_ID, "FK_User_ID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("FK_User_ID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.FK_User_ID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+        <input type="hidden" value="@ViewBag.Categories_ID" name="NoCat" />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
